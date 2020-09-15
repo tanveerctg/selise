@@ -20,7 +20,7 @@
 				              val => val > 0 && val <= $route.params.info.stock || `Only ${$route.params.info.stock} products available`
 				      ]"
 				    />					
-  					<AddToCart :productId="productInfo._id" :quantity="quantity" @addToCart="addToCart" :disabled="isDisabled"/>
+  					<AddToCart :productId="productInfo._id" :quantity="quantity" @addToCart="addToCart" />
   				</div>
   			</div>
   		</div>
@@ -45,13 +45,7 @@ export default {
 		AddToCart
 	},
 	computed:{
-		isDisabled(){
-			if(this.quantity > this.$route.params.info.stock || !this.quantity){
-				return true;
-			}else{
-				return false;
-			}
-		}
+
 	},
 	created(){
 	    fetch('https://gist.githubusercontent.com/naieem/c138ff1f12847b2a1b8ad85866426d3d/raw/037825eee126d589ab3e1fff6c3d0119f33f3b5b/Products')
@@ -60,6 +54,7 @@ export default {
 	    })
 	    .then(res=>{
 	      const findProduct=res.find(product=>product._id==this.$route.params.id)
+	      console.log('findProduct',findProduct)
 	      this.productInfo=findProduct;
 	    })
 
